@@ -53,7 +53,7 @@ if [ "$upgrade_type" == "UPGRADE_APP" ]
 then
 	ynh_script_progression --message="Upgrading source files..." --weight=1
 
-	ynh_setup_source --dest_dir="$install_dir" --keep="paperless.conf"
+	ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="paperless.conf"
 fi
 
 chmod 750 "$install_dir"
@@ -102,7 +102,7 @@ if ! dpkg --compare-versions "$($install_dir/bin/gs --version 2>/dev/null)" ge "
 then
     ynh_script_progression --message="Building Ghostscript dependency... (this will take a long time!)"
 
-    ynh_setup_source --dest_dir="$install_dir/ghostscript" --source_id="gs" --full_replace
+    ynh_setup_source --dest_dir="$install_dir/ghostscript" --source_id="gs" --full_replace --full_replace=1
 
     pushd $install_dir/ghostscript
         ynh_exec_warn_less ./configure
